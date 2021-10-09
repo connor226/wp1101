@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
 }
+
+h3 {
+    font-family: ‘cwTeXKai’, serif;
+}
   
 .img-box {
     float: left;
@@ -56,8 +60,8 @@
 }
 
 .album-icon {
-    width: 100px;
-    height: 100px;
+    width: 96px;
+    height: 96px;
 }
 
 .album {
@@ -67,8 +71,8 @@
 }
 
 .album-icon:hover {
-    width: 128px;
-    height: 128px;
+    width: 120px;
+    height: 120px;
 }
 
 #album-box {
@@ -101,7 +105,8 @@
 }
 
 #nature {
-    border: white 1px;
+    width: 128px;
+    height: 128px;
 }
 
 @media (max-width: 1200px){
