@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="album-app">
-        <h3>相簿</h3>
+        <h2>相簿</h2>
         <hr id="split">
         <div id="big-displayer">
             <div id="album-box">
@@ -35,13 +35,19 @@
                     <p>girlfriend</p>
                 </div>
             </div>
-            <img class="big-img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg">
+            <div id="slideshow">
+                <a class="prev control-button">&#10094;</a>
+                <!--
+                <img class="big-img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg">
+                -->
+                <a class="next control-button">&#10095;</a>
+            </div>
         </div>
-        <h3>相片預覽</h3>
+        <h2>相片預覽</h2>
         <hr id="split">
         <div id="img-container">
             <div class="img-box">
-                <img class="img " src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg">
+                <img class="img chosen-img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg">
             </div>
             <div class="img-box">
                 <img class="img" src="https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297__340.jpg">
