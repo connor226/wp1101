@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./style.css">
-  <script src="./main.js"></script>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1348/1348450.png">
 </head>
 <body>
@@ -14,93 +13,91 @@
         <hr id="split">
         <div id="big-displayer">
             <div id="album-box">
-                <div class="album">
+                <div id="nature" class="album" onclick="changeAlbum(this)">
                     <img class="chosen" src="./album-folder.png" alt="Icons made by Cuputo from www.flaticon.com">
                     <p>nature</p>
                 </div>
-                <div id="buildings" class="album">
+                <div id="buildings" class="album" onclick="changeAlbum(this)">
                     <img class="album-icon" src="./album-folder.png" alt="Icons made by Cuputo from www.flaticon.com">
                     <p>buildings</p>
                 </div>
-                <div id="animal" class="album">
+                <div id="animals" class="album" onclick="changeAlbum(this)">
                     <img class="album-icon" src="./album-folder.png" alt="Icons made by Cuputo from www.flaticon.com">
-                    <p>animal</p>
+                    <p>animals</p>
                 </div>
-                <div id="food" class="album">
+                <div id="food" class="album" onclick="changeAlbum(this)">
                     <img class="album-icon" src="./album-folder.png" alt="Icons made by Cuputo from www.flaticon.com">
                     <p>food</p>
                 </div>
-                <div id="girlfriend" class="album">
+                <div id="girlfriend" class="album" onclick="changeAlbum(this)">
                     <img class="album-icon" src="./album-folder.png" alt="Icons made by Cuputo from www.flaticon.com">
                     <p>girlfriend</p>
                 </div>
             </div>
             <div id="slideshow">
-                <a class="prev control-button">&#10094;</a>
-                <!--
-                <img class="big-img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg">
-                -->
-                <a class="next control-button">&#10095;</a>
+                <a id="prev" class="control-button" onclick="GOprev()">&#10094;</a>
+                <a id="next" class="control-button" onclick="GOnext()">&#10095;</a>
             </div>
         </div>
         <h2>相片預覽</h2>
         <hr id="split">
         <div id="img-container">
             <div class="img-box">
-                <img class="img chosen-img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg">
+                <img class="img chosen-img" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2017/02/08/17/24/fantasy-2049567__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2017/02/08/17/24/fantasy-2049567__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2014/02/27/16/10/tree-276014__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2014/02/27/16/10/tree-276014__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2015/09/09/16/05/forest-931706__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2015/09/09/16/05/forest-931706__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2014/09/14/18/04/dandelion-445228__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2014/09/14/18/04/dandelion-445228__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2021/09/03/15/37/mountain-6596074__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2021/09/03/15/37/mountain-6596074__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2015/11/16/16/28/bird-1045954__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2015/11/16/16/28/bird-1045954__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2013/10/02/23/03/mountains-190055__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2013/10/02/23/03/mountains-190055__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2021/09/15/21/29/lake-6627781__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2021/09/15/21/29/lake-6627781__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2014/08/15/11/29/beach-418742__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2014/08/15/11/29/beach-418742__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2016/08/09/21/54/lake-1581879__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2016/08/09/21/54/lake-1581879__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2021/08/27/18/50/water-6579313__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2021/08/27/18/50/water-6579313__340.jpg" onclick="magnify(this)">
             </div>
             <div class="img-box">
-                <img class="img" src="https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204__340.jpg">
+                <img class="img" src="https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204__340.jpg" onclick="magnify(this)">
             </div>
         </div>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>

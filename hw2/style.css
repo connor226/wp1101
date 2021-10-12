@@ -69,6 +69,7 @@ h2 {
 }
 
 #album-app {
+    min-height: 100vh;
     background-color: #1fc8db;
     background-image: linear-gradient(140deg, #f5bfb2 0%, #BC70A4 50%, #BFD641 75%);
     color: white;
@@ -93,7 +94,6 @@ h2 {
 
 .control-button {
     cursor: pointer;
-    /*position: absolute;*/
     float: left;
     width: auto;
     margin-top: 150px;
@@ -101,19 +101,20 @@ h2 {
     color: white;
     font-weight: bold;
     font-size: 22px;
-    transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
+    visibility: hidden;
 }
 
-.next {
+#next {
     margin-right: 0;
     border-radius: 3px 0 0 3px;
     float: right;
+    visibility: visible;
 }
   
 /* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
+.control-button:hover {
     background-color: rgba(0,0,0,0.8);
 }
 

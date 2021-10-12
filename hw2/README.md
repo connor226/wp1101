@@ -1,7 +1,4 @@
 # wp1101
-## a static album using html + css
-I tried using bootstrap.css but I found that something may got malfunctioned without adding some js scrpit.
+## an album using html + css + javascript
 ## picture source: [pixabay](https://pixabay.com/images/)
 <div>Album icon made by <a href="https://www.flaticon.com/authors/cuputo" title="Cuputo">Cuputo</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-
-<div>Next icon made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
