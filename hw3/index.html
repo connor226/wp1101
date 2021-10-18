@@ -16,6 +16,21 @@
             <header class="todo-app__header">
                 <h1 class="todo-app__title">todos</h1>
             </header>
+            <section class="todo-app__main">
+                <input id="input-box" class="todo-app__input" placeholder="What needs to be done?" onkeydown="appendTODO(event)">
+                <ul id="todo-list" class="todo-app__list"></ul>
+            </section>
+            <footer id="todo-footer" class="todo-app__footer">
+                <div class="todo-app__total"></div>
+                <ul class="todo-app__view-buttons">
+                    <button onclick="filterAll()">All</button>
+                    <button onclick="filterActive()">Active</button>
+                    <button onclick="filterCompleted()">Completed</button>
+                </ul>
+                <div class="todo-app__clean">
+                    <button onclick="clearCompleted()">Clear completed</button>
+                </div>
+            </footer>
         </div>
         <script src="main.js"></script>
     </body>
