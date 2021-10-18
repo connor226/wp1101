@@ -83,13 +83,30 @@ h2 {
 
 .album {
     width: 130px;
-    height: 150px;
+    min-height: 150px;
     text-align: center;
 }
 
 .album-icon:hover {
     width: 120px;
     height: 120px;
+}
+
+.plus-icon {
+    width: 96px;
+    height: 96px;
+}
+
+.plus-album-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.plus-icon:hover, .plus-album-icon:hover {
+    background-color: #888;
+    opacity: 50%;
+    border-radius: 10px;
+    transition: 0.3s ease;
 }
 
 .control-button {

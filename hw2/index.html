@@ -33,13 +33,16 @@
                     <img class="album-icon" src="./album-folder.png" alt="Icons made by Cuputo from www.flaticon.com">
                     <p>girlfriend</p>
                 </div>
+                <div id="add-album" class="album" onclick="addAlbum()">
+                    <img class="plus-album-icon" src="./plus.png">
+                </div>
             </div>
             <div id="slideshow">
                 <a id="prev" class="control-button" onclick="GOprev()">&#10094;</a>
                 <a id="next" class="control-button" onclick="GOnext()">&#10095;</a>
             </div>
         </div>
-        <h2>相片預覽</h2>
+        <h2 id="img-counter">相片預覽(1/18)</h2>
         <hr id="split">
         <div id="img-container">
             <div class="img-box">
@@ -95,6 +98,9 @@
             </div>
             <div class="img-box">
                 <img class="img" src="https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204__340.jpg" onclick="magnify(this)">
+            </div>
+            <div class="img-box add-box">
+                <img class="plus-icon" src="./plus.png" onclick="addimg(this)">
             </div>
         </div>
     </div>

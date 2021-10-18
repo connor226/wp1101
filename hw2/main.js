@@ -2,10 +2,12 @@ const app = document.getElementById("album-app");
 const slideshow = document.getElementById("slideshow");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
+const counter = document.getElementById("img-counter");
 let container = document.getElementById("img-container");
 let chosenImg = container.firstElementChild.firstElementChild;
 let index = 0;
 let currentkey = "nature";
+let key = ["nature", "buildings", "animals", "food", "girlfriend"];
 
 const imageList = {
     "nature" : ["https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455_960_720.jpg", "https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297__340.jpg", "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821__340.jpg", "https://cdn.pixabay.com/photo/2017/02/08/17/24/fantasy-2049567__340.jpg", "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg", "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg", "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg", "https://cdn.pixabay.com/photo/2014/02/27/16/10/tree-276014__340.jpg", "https://cdn.pixabay.com/photo/2015/09/09/16/05/forest-931706__340.jpg", "https://cdn.pixabay.com/photo/2014/09/14/18/04/dandelion-445228__340.jpg", "https://cdn.pixabay.com/photo/2021/09/03/15/37/mountain-6596074__340.jpg", "https://cdn.pixabay.com/photo/2015/11/16/16/28/bird-1045954__340.jpg", "https://cdn.pixabay.com/photo/2013/10/02/23/03/mountains-190055__340.jpg", "https://cdn.pixabay.com/photo/2021/09/15/21/29/lake-6627781__340.jpg", "https://cdn.pixabay.com/photo/2014/08/15/11/29/beach-418742__340.jpg", "https://cdn.pixabay.com/photo/2016/08/09/21/54/lake-1581879__340.jpg", "https://cdn.pixabay.com/photo/2021/08/27/18/50/water-6579313__340.jpg", "https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204__340.jpg"],
@@ -18,14 +20,15 @@ const imageList = {
 function magnify(img) {
     const imgURL = img.src;
     index = imageList[currentkey].indexOf(imgURL);
-    if(index === 0)  prev.style.visibility = "hidden";
+    if(index === 0 || index === -1)  prev.style.visibility = "hidden";
     else  prev.style.visibility = "visible";
-    if(index === imageList[currentkey].length - 1)  next.style.visibility = "hidden";
+    if(index === imageList[currentkey].length - 1 || index === -1)  next.style.visibility = "hidden";
     else  next.style.visibility = "visible";
     slideshow.style.backgroundImage = `url(${ imgURL })`;
     chosenImg.classList.remove("chosen-img");
     img.classList.add("chosen-img");
     chosenImg = img;
+    counter.innerText=`相片預覽(${index + 1}/${imageList[currentkey].length})`;
 }
 
 function GOprev() {
@@ -38,6 +41,7 @@ function GOprev() {
     const img = container.children[index].firstElementChild;
     img.classList.add("chosen-img");
     chosenImg = img;
+    counter.innerText=`相片預覽(${index + 1}/${imageList[currentkey].length})`;
 }
 
 function GOnext() {
@@ -50,23 +54,25 @@ function GOnext() {
     const img = container.children[index].firstElementChild;
     img.classList.add("chosen-img");
     chosenImg = img;
+    counter.innerText=`相片預覽(${index + 1}/${imageList[currentkey].length})`;
 }
 
 function changeAlbum(album) {
     if (imageList[album.id].length === 0){
-        alert("This album is empty!");
+        let res = confirm("This album is empty!");
+        if(!res)  return;
     }
-    else  if(album.id !== currentkey){  // TODO: 判斷是否為同一相簿
+    if(album.id !== currentkey){
         const oldalbum = document.getElementById(currentkey);
         oldalbum.firstElementChild.classList.remove("chosen");
         oldalbum.firstElementChild.classList.add("album-icon");
-        console.log(oldalbum.firstElementChild);
         album.firstElementChild.classList.remove("album-icon");
         album.firstElementChild.classList.add("chosen");
         currentkey = album.id;
         index = 0;
         prev.style.visibility = "hidden";
-        next.style.visibility = "visible";
+        next.style.visibility = "hidden";
+        if(imageList[currentkey].length > 1)  next.style.visibility = "visible";
         slideshow.style.backgroundImage = `url(${ imageList[currentkey][index] })`;
         app.removeChild(container);
         container = document.createElement("div");
@@ -81,7 +87,78 @@ function changeAlbum(album) {
             newnode.appendChild(newimg);
             container.appendChild(newnode);
         })
-        container.firstElementChild.firstElementChild.classList.add("chosen-img");
+        const newplus = document.createElement("div");
+        newplus.classList.add("img-box");
+        newplus.classList.add("add-box");
+        if(container.childNodes.length)  container.firstElementChild.firstElementChild.classList.add("chosen-img");
+        const plusicon = document.createElement("img");
+        plusicon.classList.add("plus-icon");
+        plusicon.src = "./plus.png";
+        plusicon.addEventListener("click", () => {addimg(plusicon)});
+        newplus.appendChild(plusicon);
+        container.appendChild(newplus);
         app.appendChild(container);
+        chosenImg = container.firstElementChild.firstElementChild;
+        counter.innerText=`相片預覽(${index + 1}/${imageList[currentkey].length})`;
+    }
+}
+
+function addAlbum() {
+    albumName = prompt("Name your new album:");
+    if(!albumName)  return ;
+    if(key.includes(albumName)){
+        alert("Album name already used :(");
+        return;
+    }
+    const album_box = document.getElementById("album-box");
+    const addAlbum = document.getElementById("add-album");
+    album_box.removeChild(addAlbum);
+    key.push(albumName);
+    imageList[albumName] = [];
+    const newdiv = document.createElement("div");
+    const newimg = document.createElement("img");
+    const newp = document.createElement("p");
+    newdiv.id = albumName;
+    newdiv.classList.add("album");
+    newdiv.addEventListener("click", () => {changeAlbum(newdiv)});
+    newimg.classList.add("album-icon");
+    newimg.src = "./album-folder.png";
+    newp.innerText = albumName;
+    newdiv.appendChild(newimg);
+    newdiv.appendChild(newp);
+    album_box.appendChild(newdiv);
+    album_box.appendChild(addAlbum);
+}
+
+function addimg(plus){
+    const newurl = prompt("url for new image: ");
+    if(!newurl)  return;
+    if(imageList[currentkey].indexOf(newurl) !== -1){
+        alert("This picture is already in current album!");
+        return;
+    }
+    const newdiv = document.createElement("div");
+    const newimg = document.createElement("img");
+    newdiv.classList.add("img-box");
+    newimg.classList.add("img");
+    newimg.src = newurl;
+    newimg.onload = () =>{
+        const addbox = plus.parentNode;
+        container.removeChild(addbox);
+        imageList[currentkey].push(newurl);
+        newimg.addEventListener("click", () => {magnify(newimg)});
+        newdiv.appendChild(newimg);
+        container.appendChild(newdiv);
+        if(container.childNodes.length == 1){
+            newimg.classList.add("chosen-img");
+            magnify(newimg);
+            index = 0;
+        }
+        else  next.style.visibility = "visible";
+        container.appendChild(addbox);
+        counter.innerText=`相片預覽(${index + 1}/${imageList[currentkey].length})`;
+    }
+    newimg.onerror = () =>{
+        alert("image not found :(");
     }
 }
