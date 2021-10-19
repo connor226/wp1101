@@ -1,11 +1,14 @@
 const todoList = document.getElementById("todo-list");
 const inputbox = document.getElementById("input-box");
+const counter = document.getElementById("todo-counter");
+const footer = document.getElementById("todo-footer");
 
 let todoCount = 0;
+let unfinishTask = 0;
 
 function appendTODO(e) {
     if(e.keyCode !== 13)  return;
-    console.log("e.keyCode");
+    unfinishTask += 1;
     e.preventDefault();
     const newDetail = inputbox.value;
     inputbox.value = "";
@@ -13,7 +16,7 @@ function appendTODO(e) {
     newTodo.classList.add("todo-app__item");
     const newdiv = document.createElement("div");
     newdiv.classList.add("todo-app__checkbox");
-    const newinput = document.createElement("input");  // what is this input for?
+    const newinput = document.createElement("input");
     const newlabel = document.createElement("label");
     newinput.type = "checkbox";
     newinput.id = todoCount;
@@ -30,9 +33,36 @@ function appendTODO(e) {
     newTodo.appendChild(newh1);
     newTodo.appendChild(newimg);
     todoList.appendChild(newTodo);
+    newdiv.addEventListener("click", () => {
+        newinput.checked ^= 1;
+        if(newinput.checked){
+            newh1.style.textDecoration = "line-through";
+            newh1.style.opacity = 0.5;
+            unfinishTask -= 1;
+        }
+        else{
+            newh1.style.textDecoration = "None";
+            newh1.style.opacity = 1;
+            unfinishTask += 1;
+        }
+        counter.innerText = `${unfinishTask} left`;
+    })
+    newimg.addEventListener("click", () => {  // TODO: hide footer when ul is empty
+        todoList.removeChild(newTodo);
+        if(!newinput.checked){
+            unfinishTask -= 1;
+            counter.innerText = `${unfinishTask} left`;
+        }
+        if(todoList.childElementCount === 0){
+            todoList.style.visibility = "hidden";
+            footer.style.visibility = "hidden";
+        }
+    })
     if(todoList.childElementCount === 1){
         todoList.style.visibility = "visible";
+        footer.style.visibility = "visible";
     }
+    counter.innerText = `${unfinishTask} left`;
 }
 
 function filterAll() {
