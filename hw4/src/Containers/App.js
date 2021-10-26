@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Input from './input';
 import TodoList from './todolist';
-//import Footer from './footer';
+import Footer from './footer';
 
 export default function TodoApp(){
     const [todos, setTodos] = useState([]);
@@ -15,7 +15,7 @@ export default function TodoApp(){
                 <Input todos= {todos} handleChange = {setTodos}/>
                 <TodoList todos= {todos} filter= {filter} handleChange={setTodos}/>
             </section>
-            {//<Footer todos= {todos} filter= {filter} changeFilter= {setFilter}/>
-        }</div>
+            <Footer todos= {todos} changeFilter= {setFilter} clear={setTodos}/>
+        </div>
     )
 }

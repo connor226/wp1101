@@ -232,3 +232,7 @@ input[type='checkbox'] {
     max-height: 25px;
     right: 17.5px;
 }
+
+.hidden-button {
+    visibility: hidden;
+}

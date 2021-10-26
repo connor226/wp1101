@@ -19,8 +19,9 @@ function TodoList({todos, filter, handleChange}) {
             <ul className="todo-app__list" id="todo-list">
             {
                 todos.map(detail => {
-                    console.log(detail);
                     const {todo, key, stat} = detail;
+                    console.log(filter);
+                    if (filter !== "all" && filter !== stat)  return null;
                     return <Item todo={todo} _id={key} deleteItem={deleteItem} stat={stat} toggleStat={toggleStat}></Item>
                 })
             }
