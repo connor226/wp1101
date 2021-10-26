@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-// import Counter from './App';
+import './styles.css';
+import TodoApp from './Containers/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Counter />
+    <TodoApp />
   </React.StrictMode>,
   document.getElementById('root')
 );

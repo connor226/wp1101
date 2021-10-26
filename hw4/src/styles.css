@@ -79,7 +79,6 @@ input[type='checkbox'] {
     /* 5*5=25 */
     max-height: 23em;
     overflow: scroll;
-    visibility: hidden;
 }
 
 .todo-app__item {
@@ -123,6 +122,11 @@ input[type='checkbox'] {
 
 .todo-app__checkbox input[type='checkbox']:checked + label {
     background: #26ca299b;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
 .todo-app__item-detail {
