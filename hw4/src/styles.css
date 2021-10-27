@@ -236,3 +236,8 @@ input[type='checkbox'] {
 .hidden-button {
     visibility: hidden;
 }
+
+.disabled-button {
+    opacity: 50%;
+    cursor: no-drop;
+}

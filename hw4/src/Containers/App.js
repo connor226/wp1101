@@ -15,7 +15,7 @@ export default function TodoApp(){
                 <Input todos= {todos} handleChange = {setTodos}/>
                 <TodoList todos= {todos} filter= {filter} handleChange={setTodos}/>
             </section>
-            <Footer todos= {todos} changeFilter= {setFilter} clear={setTodos}/>
+            <Footer todos= {todos} filter={filter} changeFilter= {setFilter} clear={setTodos}/>
         </div>
     )
 }
