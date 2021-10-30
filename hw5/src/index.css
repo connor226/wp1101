@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.calculator-container {
+  width: 250px;
+  border: 2px solid #343eff;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.keyboard-container {
+  align-items: center;
+}
+
+.keyboard-container > button{
+  width: 60px;
+}
+
+.displayer {
+  text-align: center;
+}
+
+.screen {
+  text-align: right;
+  height: 1.5em;
+  margin-top: 0.2em;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  overflow: hidden;
+  direction: rtl;
+}
+
+.input-display {
+  width: 90%;
+  font-size: 20px;
+  border: none;
+  text-align: left;
+  background-color: #ffffff;
+}
