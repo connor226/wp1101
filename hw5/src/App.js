@@ -35,13 +35,15 @@ export default function App() {
     }
     else  if(!e.target.innerText){  // backspace
       if(number.length === 1)  setNumber('0');  // no more digits to remove
+      else  if(number.length === 2 && number.includes('-'))  setNumber('0');
       else  setNumber(number => number.slice(0, number.length-1));
     }  
     else  if(e.target.innerText === '='){  // =
       if(expression.includes('=')) return;  // first input after '='
       let answer = String(eval(expression + number));
-      if(answer.length > 13)  answer = Number(answer).toExponential(6).toString();
-      if(answer === "Infinity"){
+      if(answer.length > 13 && answer.includes('0.000'))  answer = Number(answer).toExponential(6).toString();
+      if(answer.length > 13)  answer = answer.slice(0,13);
+      if(answer.includes("Infinity")){
         if((expression + number).includes('/ 0'))  setNumber("錯誤: 不能除以0");
         else  setNumber("錯誤: 溢位");
       }

@@ -38,13 +38,12 @@ code {
   margin-left: 0.2em;
   margin-right: 0.2em;
   overflow: hidden;
-  direction: rtl;
 }
 
 .input-display {
   width: 90%;
+  text-align: right;
   font-size: 20px;
   border: none;
-  text-align: left;
   background-color: #ffffff;
 }
