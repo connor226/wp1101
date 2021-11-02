@@ -19,6 +19,14 @@ const HomePage = ({startGameOnClick, mineNumOnChange, boardSizeOnChange, mineNum
       setShowPanel(showPanel => showPanel? false: true);
     }
 
+    const handlemineNumChange = () => {
+
+    }
+
+    const handleboardSizeChange = () => {
+
+    }
+
     return(
       <div className = 'HomeWrapper'>
         <p className = 'title'>MineSweeper</p>
@@ -33,13 +41,13 @@ const HomePage = ({startGameOnClick, mineNumOnChange, boardSizeOnChange, mineNum
             <div className="controlPanel">
               <div className="controlCol">
                 <p className="controlTitle">Mines Number</p>
-                <input type = 'range' step = '1' min = '1' max = '50' defaultValue = '10' onChange={mineNumOnChange}></input>
-                <p className="controlMum" style={error? {color:'#880000'}:{color:'0f0f4b'}}>{mineNum}</p>
+                <input type = 'range' step = '1' min = '1' max = '50' defaultValue = '10' onChange={handlemineNumChange}></input>
+                <p className="controlNum" style={error? {color:'#880000'}:{color:'0f0f4b'}}>{mineNum}</p>
               </div>
               <div className="controlCol">
-                <p className="controlTitle">Board Size (nxn)</p>
-                <input type = 'range' step = '1' min = '1' max = '20' defaultValue = '8' onChange={boardSizeOnChange}></input>
-                <p className="controlMum" style={error? {color:'#880000'}:{color:'0f0f4b'}}>{boardSize}</p>
+                <p className="controlTitle">Board Size (n×n)</p>
+                <input type = 'range' step = '1' min = '1' max = '20' defaultValue = '8' onChange={handleboardSizeChange}></input>
+                <p className="controlNum" style={error? {color:'#880000'}:{color:'0f0f4b'}}>{boardSize}</p>
               </div>
             </div>
           </div>

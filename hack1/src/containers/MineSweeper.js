@@ -22,12 +22,12 @@ const MineSweeper = () => {
         setStartGame(true);
     }
     {/* -- TODO 6-2 -- */}
-    const mineNumOnChange = () => {
-        
+    const mineNumOnChange = (newMineNum) => {
+        setMineNum(newMineNum);
     }
     {/* -- TODO 6-2 -- */}
-    const boardSizeOnChange = () => {
-        
+    const boardSizeOnChange = (newBoardSize) => {
+        setBoardSize(newBoardSize);
     }
     {/* -- TODO 5-2 -- */}
     const backToHomeOnClick = () => {
@@ -49,7 +49,7 @@ const MineSweeper = () => {
                 {/* -- TODO 1-1 -- */} 
                 {/* Useful Hint: If ... <HomePage startGameOnClick = {startGameOnClick} .../> else <Board .../> */}
                 {/* Reminder: You can refer to the structure file in p.6 of Hack1.pdf. */}
-                <HomePage startGameOnClick={startGameOnClick}/>
+                <HomePage startGameOnClick={startGameOnClick} mineNumOnChange={mineNumOnChange} boardSizeOnChange={boardSizeOnChange} mineNum={mineNum} boardSize={boardSize}/>
             </div>
         );
     }
