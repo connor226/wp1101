@@ -13,7 +13,7 @@ code {
 }
 
 .calculator-container {
-  width: 250px;
+  width: 420px;
   border: 2px solid #343eff;
   border-radius: 10px;
   margin: 10px;
@@ -21,6 +21,7 @@ code {
 
 .keyboard-container {
   align-items: center;
+  margin-bottom: 4px;
 }
 
 .keyboard-container > button{

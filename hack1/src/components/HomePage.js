@@ -9,22 +9,26 @@
 import React, { useState } from 'react';
 import './css/HomePage.css';
 
-{/* -- TODO 2 -- */}
+/* -- TODO 2 -- */
 const HomePage = ({startGameOnClick, mineNumOnChange, boardSizeOnChange, mineNum, boardSize /* -- something more... -- */}) => {
     const [showPanel, setShowPanel] = useState(false);      // A boolean variable. If true, the controlPanel will show.
     const [error, setError] = useState(false);              // A boolean variable. If true, means that the numbers of mines and the board size are invalid to build a game.
 
-    {/* Some functions may be added here! */}
+    /* Some functions may be added here! */
     const difficultyAdjustment = () => {
       setShowPanel(showPanel => showPanel? false: true);
     }
 
-    const handlemineNumChange = () => {
-
+    const handleMineNumChange = (e) => {
+      mineNumOnChange(e.target.value);
+      if(!error && mineNum > boardSize * boardSize)  setError(true);
+      if(error && mineNum <= boardSize * boardSize)  setError(false);
     }
 
-    const handleboardSizeChange = () => {
-
+    const handleBoardSizeChange = (e) => {
+      boardSizeOnChange(e.target.value);
+      if(!error && mineNum > boardSize * boardSize)  setError(true);
+      if(error && mineNum <= boardSize * boardSize)  setError(false);
     }
 
     return(
@@ -41,12 +45,12 @@ const HomePage = ({startGameOnClick, mineNumOnChange, boardSizeOnChange, mineNum
             <div className="controlPanel">
               <div className="controlCol">
                 <p className="controlTitle">Mines Number</p>
-                <input type = 'range' step = '1' min = '1' max = '50' defaultValue = '10' onChange={handlemineNumChange}></input>
+                <input type = 'range' step = '1' min = '1' max = '50' defaultValue = '10' onChange={handleMineNumChange}></input>
                 <p className="controlNum" style={error? {color:'#880000'}:{color:'0f0f4b'}}>{mineNum}</p>
               </div>
               <div className="controlCol">
                 <p className="controlTitle">Board Size (n×n)</p>
-                <input type = 'range' step = '1' min = '1' max = '20' defaultValue = '8' onChange={handleboardSizeChange}></input>
+                <input type = 'range' step = '1' min = '1' max = '20' defaultValue = '8' onChange={handleBoardSizeChange}></input>
                 <p className="controlNum" style={error? {color:'#880000'}:{color:'0f0f4b'}}>{boardSize}</p>
               </div>
             </div>
