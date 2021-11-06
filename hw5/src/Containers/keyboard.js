@@ -7,9 +7,9 @@ import BackspaceIcon from '@mui/icons-material/Backspace';
 const buttons = [
     ['mod','(',')','e','Pi','AC',<BackspaceIcon />],
     ['sin','cos','tan','sqrt','^','%','/'],
-    ['csc','sec','cot','7','8','9','*'],
-    ['asin','acos','atan','4','5','6','-'],
-    ['acsc','asec','acot','1','2','3','+'],
+    ['asin','acos','atan','7','8','9','*'],
+    ['sinh','cosh','tanh','4','5','6','-'],
+    ['asinh','acosh','atanh','1','2','3','+'],
     ['log2','log10','ln','+/-','0','.','=']
 ];
 

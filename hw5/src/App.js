@@ -10,15 +10,15 @@ const sqrt = (num) => Math.sqrt(num);
 const sin = (num) => Math.sin(num);
 const cos = (num) => Math.cos(num);
 const tan = (num) => Math.tan(num);
-const sec = (num) => Math.sec(num);
-const csc = (num) => Math.cos(num);
-const cot = (num) => Math.cot(num);
+const sinh = (num) => Math.sinh(num);
+const cosh = (num) => Math.cosh(num);
+const tanh = (num) => Math.tanh(num);
 const asin = (num) => Math.asin(num);
 const acos = (num) => Math.acos(num);
 const atan = (num) => Math.atan(num);
-const asec = (num) => Math.asec(num);
-const acsc = (num) => Math.acos(num);
-const acot = (num) => Math.acot(num);
+const asinh = (num) => Math.asinh(num);
+const acosh = (num) => Math.acosh(num);
+const atanh = (num) => Math.atanh(num);
 const log2 = (num) => Math.log2(num);
 const log10 = (num) => Math.log10(num);
 const ln = (num) => Math.log(num);
@@ -133,7 +133,7 @@ export default function App() {
   return (
     <>
       <div className="calculator-container">
-        <Augment />
+        {/*<Augment />*/}
         <Output number={number} expression={expression}></Output>
         <Keyboard changeExpression={changeExpression}></Keyboard>
       </div>
