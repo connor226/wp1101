@@ -43,15 +43,23 @@ export default function App() {
     else  if(e.target.innerText === '='){  // =
       if(expression.includes('=')) return;  // first input after '='
       let answer;
-      if(expression[expression.length - 1] === ')')  answer = String(eval(expression));
-      else  answer = String(eval(expression + number));
-      if(answer.length > 22 && answer.includes('0.000'))  answer = Number(answer).toExponential(15).toString();
-      if(answer.length > 22)  answer = answer.slice(0,22);
-      if(answer.includes("Infinity") || answer.includes("NaN")){
-        if((expression + number).includes('/ 0'))  setNumber("錯誤: 不能除以0");
-        else  setNumber("錯誤: 溢位");
+      try{
+        if(expression[expression.length - 1] === ')')  answer = String(eval(expression));
+        else  answer = String(eval(expression + number));
+        if(answer.length > 22 && answer.includes('0.000'))  answer = Number(answer).toExponential(15).toString();
+        if(answer.length > 22)  answer = answer.slice(0,22);
+        if(answer.includes("Infinity")){
+          if((expression + number).includes('/ 0'))  setNumber("錯誤: 不能除以0");
+          else  setNumber("錯誤: 溢位");
+        }
+        else  if(answer.includes("NaN")){
+          setNumber("錯誤: 非實數");
+        }
+        else  setNumber(answer);
       }
-      else  setNumber(answer);
+      catch(err){
+        setNumber("錯誤: 括號未匹配");
+      }
       if(expression[expression.length - 1] === ')')  setExpression(expression => expression + ' =');
       else  setExpression(expression => expression + number + ' =');
     }
@@ -79,6 +87,7 @@ export default function App() {
       }
       else  if(e.target.innerText === ')'){  // )
         if(expression.includes('='))  return ;
+        else  if(expression && expression[expression.length - 1] === ')')  setExpression(expression => expression + e.target.innerText);
         else{
           setExpression(expression => expression + number + e.target.innerText);
           setNumber('0');
