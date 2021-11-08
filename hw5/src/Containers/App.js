@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-import Output from './Containers/output'
-import Keyboard from './Containers/keyboard'
-import Augment from './Containers/augment'
-import Memory from './Containers/memory'
+import Output from '../Components/output'
+import Keyboard from '../Components/keyboard'
+import Memory from '../Components/memory'
 
 const digits = '0123456789';
 const operands = '+/-*%^';
@@ -24,10 +23,13 @@ const log10 = (num) => Math.log10(num);
 const ln = (num) => Math.log(num);
 const PI = Math.PI;
 const E = Math.E;
+let key = 0;
 
 export default function App() {
   const [number, setNumber] = useState("0");
   const [expression, setExpression] = useState("");
+  const [register, setRegister] = useState([{expression:'none', number: '0', key: 0}]);
+  const [currentpos, setCurrentpos] = useState(0);
 
   const changeExpression = (e) =>{
     if(e.target.innerText === 'AC'){  // all clear
@@ -36,7 +38,7 @@ export default function App() {
     }
     else  if(!e.target.innerText){  // backspace
       if(number.length === 1)  setNumber('0');  // no more digits to remove
-      else  if(number.includes('e'))  setNumber('0');
+      else  if(number.includes('e') || number.includes('錯誤'))  setNumber('0');
       else  if(number.length === 2 && number.includes('-'))  setNumber('0');
       else  setNumber(number => number.slice(0, number.length-1));
     }  
@@ -139,14 +141,45 @@ export default function App() {
     }
   }
 
+  const handlePosForward = () => {
+    setCurrentpos(currentpos => currentpos + 1);
+  }
+
+  const handlePosBack = () => {
+    setCurrentpos(currentpos => currentpos - 1);
+  }
+
+  const handleMemSave = () => {
+    if(number.includes('錯誤'))  return ;
+    let newReg = {key: ++key};
+    if(expression.includes('='))  newReg.expression = expression;
+    else  newReg.expression = '沒有算式';
+    newReg.number = number;
+    const deepCopyReg = JSON.parse(JSON.stringify(register));
+    deepCopyReg.push(newReg);
+    setRegister(deepCopyReg);
+    setCurrentpos(currentpos => currentpos + 1);
+  }
+
+  const handleMemRead = () => {
+    setNumber(register[currentpos].number);
+    if(expression.includes('='))  setExpression('');
+  }
+
+  const handleMemClear = () => {
+    const target = register[currentpos];
+    const deepCopyReg = JSON.parse(JSON.stringify(register));
+    setRegister(deepCopyReg.filter(reg => {return reg.key !== target.key}));
+    if(currentpos >= deepCopyReg.length - 1)  setCurrentpos(currentpos => currentpos - 1);
+  }
+
   return (
     <>
       <div className="calculator-container">
-        {/*<Augment />*/}
         <Output number={number} expression={expression}></Output>
         <Keyboard changeExpression={changeExpression}></Keyboard>
       </div>
-      {/*<Memory />*/}
+      <Memory register={register} currentpos={currentpos} number={number} handleMemSave={handleMemSave} handleMemRead={handleMemRead} handlePosForward={handlePosForward} handlePosBack={handlePosBack} handleMemClear={handleMemClear}/>
     </>
   );
 }
