@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import {React, useState} from 'react';
 import './App.css';
 
 function App() {
+  const [end, setEnd] = useState(true);
+  const [board, setBoard] = useState([['none', 'none', 'none'], ['none', 'none', 'none'], ['none', 'none', 'none']]);
+  const menu = 
+    <div className="App-header">
+      <h1>Menu</h1>
+      <h3>Ready to play Tic-Tac-Toe ?</h3>
+      <button>Start Game</button>
+    </div>
+  const gameBoard = 
+    <table className="App-header">{
+      board.map(row => {
+        return <tr>{
+          row.map(grid => {
+            return grid === 'none' ? <td><div className="OX-grid"></div></td> : <td><div className="OX-grid">{grid === 'O' ? <img src="O.png" alt="O"/>:<img src="X.png" alt="X"/>}</div></td>;
+          })
+        }</tr>
+      })
+    }</table>
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {end ? menu : gameBoard}
     </div>
   );
 }
