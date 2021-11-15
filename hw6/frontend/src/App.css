@@ -8,6 +8,15 @@
   border: white 2px solid;
 }
 
+.unused:hover {
+  background-color: blanchedalmond;
+}
+
+.OX-pic {
+  width: 100%;
+  height: 100%;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
