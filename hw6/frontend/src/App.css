@@ -27,3 +27,21 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.info-box {
+  width: 100%;
+  height: 100%;
+  color: #3477ef;
+  opacity: 40%;
+  position: fixed;
+  top: 40%;
+  z-index: 2;
+}
+
+.info-box > h1 {
+  font-size: 48px;
+}
+
+.info-box > button {
+  font-size: 24px;
+}
