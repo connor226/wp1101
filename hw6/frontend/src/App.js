@@ -7,9 +7,13 @@ import { startGame, getStatus, putO } from './axios';
 function App() {
   const [loading, finishLoad] = useState(true);
   const [end, setEnd] = useState('true');
-  const [board, setBoard] = useState([[{X:0,Y:0,value:'none'}, {X:0,Y:1,value:'none'}, {X:0,Y:2,value:'none'}], [{X:1,Y:0,value:'none'}, {X:1,Y:1,value:'none'}, {X:1,Y:2,value:'none'}], [{X:2,Y:0,value:'none'}, {X:2,Y:1,value:'none'}, {X:2,Y:2,value:'none'}]]);
+  const [board, setBoard] = useState([[{X:0,Y:0,value:'none'}, {X:0,Y:1,value:'none'}, {X:0,Y:2,value:'none'}], 
+                                      [{X:1,Y:0,value:'none'}, {X:1,Y:1,value:'none'}, {X:1,Y:2,value:'none'}], 
+                                      [{X:2,Y:0,value:'none'}, {X:2,Y:1,value:'none'}, {X:2,Y:2,value:'none'}]]);
   //[[{X:0,Y:0,value:'O'}, {X:0,Y:1,value:'none'}, {X:0,Y:2,value:'none'}], [{X:1,Y:0,value:'none'}, {X:1,Y:1,value:'none'}, {X:1,Y:2,value:'none'}], [{X:2,Y:0,value:'none'}, {X:2,Y:1,value:'none'}, {X:2,Y:2,value:'none'}]]
-  
+  const [error, setError] = useState(false);
+  const [line, setLine] = useState([[false, false, false], [false, false, false], [false, false, false]]);
+
   useEffect(() => {
     getStatus().then(({_end, _board}) => {
       setEnd(_end);
@@ -29,6 +33,50 @@ function App() {
     putO(grid.X, grid.Y).then(({_end, _board}) => {
       setEnd(_end);
       setBoard(_board);
+      if(_end === 'win' || _end === 'lose'){
+        let newLine = [[false, false, false], [false, false, false], [false, false, false]];
+        if(_board[0][0].value === _board[0][1].value && _board[0][1].value === _board[0][2].value && _board[0][1].value !== 'none'){
+          newLine[0][0] = true;
+          newLine[0][1] = true;
+          newLine[0][2] = true;
+        }
+        if(_board[1][0].value === _board[1][1].value && _board[1][1].value === _board[1][2].value && _board[1][1].value !== 'none'){
+          newLine[1][0] = true;
+          newLine[1][1] = true;
+          newLine[1][2] = true;
+        }
+        if(_board[2][0].value === _board[2][1].value && _board[2][1].value === _board[2][2].value && _board[2][1].value !== 'none'){
+          newLine[2][0] = true;
+          newLine[2][1] = true;
+          newLine[2][2] = true;
+        }
+        if(_board[0][0].value === _board[1][0].value && _board[1][0].value === _board[2][0].value && _board[0][0].value !== 'none'){
+          newLine[0][0] = true;
+          newLine[1][0] = true;
+          newLine[2][0] = true;
+        }
+        if(_board[0][1].value === _board[1][1].value && _board[1][1].value === _board[2][1].value && _board[0][1].value !== 'none'){
+          newLine[0][1] = true;
+          newLine[1][1] = true;
+          newLine[2][1] = true;
+        }
+        if(_board[0][2].value === _board[1][2].value && _board[1][2].value === _board[2][2].value && _board[0][2].value !== 'none'){
+          newLine[0][2] = true;
+          newLine[1][2] = true;
+          newLine[2][2] = true;
+        }
+        if(_board[0][0].value === _board[1][1].value && _board[1][1].value === _board[2][2].value && _board[1][1].value !== 'none'){
+          newLine[0][0] = true;
+          newLine[1][1] = true;
+          newLine[2][2] = true;
+        }
+        if(_board[0][2].value === _board[1][1].value && _board[1][1].value === _board[2][0].value && _board[1][1].value !== 'none'){
+          newLine[2][0] = true;
+          newLine[1][1] = true;
+          newLine[0][2] = true;
+        }
+        setLine(newLine);
+      }
     });
   }
 
@@ -57,7 +105,16 @@ function App() {
           board.map(row => {
             return <tr>{
               row.map(grid => {
-                return grid.value === 'none' ? <td><div className="OX-grid unused" onClick={() => handleClickGrid(grid)}/></td> : <td><div className="OX-grid">{grid.value === 'O' ? <img className="OX-pic" src="O.png" alt="O"/>:<img className="OX-pic" src="X.png" alt="X"/>}</div></td>;
+                return grid.value === 'none' ? 
+                  <td>
+                    <div className="OX-grid unused" onClick={() => handleClickGrid(grid)}/>
+                  </td> : 
+                  <td>
+                    <div className={`OX-grid ${((end === 'win' || end === 'lose') && line[grid.X][grid.Y]) ? "inLine" : "notInLine"}`}>{grid.value === 'O' ? 
+                      <img className="OX-pic" src="O.png" alt="O"/>:
+                      <img className="OX-pic" src="X.png" alt="X"/>}
+                    </div>
+                  </td>;
               })
             }</tr>
           })
