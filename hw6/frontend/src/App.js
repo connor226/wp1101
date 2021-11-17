@@ -2,8 +2,6 @@ import { React, useState, useEffect } from 'react';
 import './App.css';
 import { startGame, getStatus, putO } from './axios';
 
-
-
 function App() {
   const [loading, finishLoad] = useState(true);
   const [end, setEnd] = useState('true');
@@ -14,23 +12,28 @@ function App() {
   const [error, setError] = useState(false);
   const [line, setLine] = useState([[false, false, false], [false, false, false], [false, false, false]]);
 
-  useEffect(() => {
+  const handleLoading = () => {
     getStatus().then(({_end, _board}) => {
+      setError(false);
       setEnd(_end);
       setBoard(_board);
       finishLoad(false);
     })
-  }, [loading]);
+    .catch(() => {setError('load')})
+  }
   
   const handleStartGame = () => {
     startGame().then(({_end, _board}) => {
+      setError(false);
       setEnd(_end);
       setBoard(_board);
-    });
+    })
+    .catch(() => {setError('start')});
   }
 
   const handleClickGrid = (grid) => {
     putO(grid.X, grid.Y).then(({_end, _board}) => {
+      setError(false);
       setEnd(_end);
       setBoard(_board);
       if(_end === 'win' || _end === 'lose'){
@@ -77,21 +80,45 @@ function App() {
         }
         setLine(newLine);
       }
-    });
+    })
+    .catch(() => {setError(grid)});
   }
 
-  const loadingPage = <h1 className="App-header">Loading...</h1>
+  const handleRetry = () => {
+    if(error === 'load')  handleLoading();
+    else  if(error === 'start')  handleStartGame();
+    else  handleClickGrid(error);
+  }
+
+  useEffect(() => {
+    handleLoading();
+  }, [loading]);
+
+  const errorMessage = 
+    <div className="error-box">
+      <h1>HTTP 500: Server Not Connected</h1>
+      <button onClick={handleRetry}>retry</button>
+    </div>
+
+  const loadingPage = 
+    <div className="App-header">
+      {error ? errorMessage : <h1>Loading...</h1>}
+    </div>
   
   const menu = 
     <div className="App-header">
-      <h1>Menu</h1>
-      <h3>Ready to play Tic-Tac-Toe ?</h3>
-      <button onClick={handleStartGame}>Start Game</button>
+      {error ? errorMessage :
+      <>
+        <h1>Menu</h1>
+        <h3>Ready to play Tic-Tac-Toe ?</h3>
+        <button onClick={handleStartGame}>Start Game</button>
+      </>}
     </div>
 
   const gameBoard = 
     <div>
-      {end === 'none' ? null : <div className="info-box">{end === 'win' ? 
+      {error ? errorMessage : null}
+      {end === 'none' || error ? null : <div className="info-box">{end === 'win' ? 
         <>
           <h1>You win!!!</h1>
           <button onClick={handleStartGame}>restart</button>
