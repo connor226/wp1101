@@ -1,8 +1,12 @@
-import WebSocket from "ws";
-import http from 'http';
-import express from 'express';
-import dotenv from 'dotenv-defaults';
-import mongoose from 'mongoose';
+const WebSocket = require("ws");
+const http = require('http');
+const express = require('express');
+const dotenv = require('dotenv-defaults');
+const mongoose = require('mongoose');
+import { sendData, sendStatus } from "./wssConnect";
+import Message from "./models/message";
+
+require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
@@ -23,12 +27,17 @@ db.once('open', () => {
                     catch(e){
                         throw new Error("Message DB Save error: " + e);
                     }
+                    sendData(['output', [payload]], ws);
+                    sendStatus({
+                        type: 'success',
+                        msg: 'Message sent'
+                    }, ws);
+                    break;
                 }
+                default: break
             }
             await dbMessage.save();
         }
-        sendData(['output', [payload]]);
-        break;
     })
     const PORT = env.process.PORT || 4000;
     server.listen(PORT, () => {

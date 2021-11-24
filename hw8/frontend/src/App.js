@@ -1,5 +1,5 @@
 import './App.css'
-import { Button, Input, Tag } from 'antd'
+import { Button, Input, Tag, message } from 'antd'
 import {React, useState} from 'react'
 import useChat from './useChat'
 
@@ -7,6 +7,23 @@ function App() {
   const { status, messages, sendMessage } = useChat();
   const [username, setUsername] = useState('');
   const [body, setBody] = useState('');
+  const displayStatus = (payload) => {
+    if(payload.msg){
+      const {type, msg} = payload;
+      const content = {content: msg, duration: 0.5};
+      switch(type){
+        case 'success':{
+          message.success(content);
+          break;
+        }
+        case 'error':{
+          message.error(content);
+          break;
+        }
+        default: break;
+      }
+    }
+  }
   return (
     <div className="App">
       <div className="App-title">
