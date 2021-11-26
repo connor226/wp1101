@@ -56,7 +56,7 @@ const Body = () => {
   const handleAdd = async () => {
     const {
       data: { message, card },
-    } = await axios.post('/api/create-card', {
+    } = await axios.post('/create-card', {
       name,
       subject,
       score,
@@ -69,13 +69,12 @@ const Body = () => {
   const handleQuery = async () => {
     const {
       data: { messages, message },
-    } = await axios.get('/api/query-cards', {
+    } = await axios.get('/query-cards', {
       params: {
         type: queryType,
         queryString,
       },
     });
-
     if (!messages) addErrorMessage(message);
     else addRegularMessage(...messages);
   };
