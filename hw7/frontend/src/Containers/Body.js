@@ -8,6 +8,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { useStyles } from '../hooks';
 import axios from '../api';
@@ -36,6 +38,18 @@ const ContentPaper = styled(Paper)`
   overflow: auto;
 `;
 
+function TabPanel({value, tab, children}) {
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== tab}
+    >
+      {children}
+    </div>
+  );
+}
+
 const Body = () => {
   const classes = useStyles();
 
@@ -45,12 +59,16 @@ const Body = () => {
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');
   const [score, setScore] = useState(0);
-
+  const [tab, setTab] = useState(0);
   const [queryType, setQueryType] = useState('name');
   const [queryString, setQueryString] = useState('');
 
   const handleChange = (func) => (event) => {
     func(event.target.value);
+  };
+
+  const handleTabChange = (event, newTab) => {
+    setTab(newTab);
   };
 
   const handleAdd = async () => {
@@ -81,6 +99,11 @@ const Body = () => {
 
   return (
     <Wrapper>
+      <Tabs value={tab} onChange={handleTabChange}>
+        <Tab label="Add" />
+        <Tab label="Query" />
+      </Tabs>
+      <TabPanel value={0} tab={tab}>
       <Row>
         {/* Could use a form & a library for handling form data here such as Formik, but I don't really see the point... */}
         <TextField
@@ -113,6 +136,8 @@ const Body = () => {
           Add
         </Button>
       </Row>
+      </TabPanel>
+      <TabPanel value={1} tab={tab}>
       <Row>
         <StyledFormControl>
           <FormControl component="fieldset">
@@ -150,6 +175,7 @@ const Body = () => {
           Query
         </Button>
       </Row>
+      </TabPanel>
       <ContentPaper variant="outlined">
         {messages.map((m, i) => (
           <Typography variant="body2" key={m + i} style={{ color: m.color }}>
