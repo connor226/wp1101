@@ -7,4 +7,4 @@
 
 1. run `npm install` under `/hw7`
 2. run `npm start` under `/hw7`
-3. run `npm run server` unser `/hw7`
+3. run `npm run server` under `/hw7`
