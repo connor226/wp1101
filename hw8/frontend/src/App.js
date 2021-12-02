@@ -1,12 +1,12 @@
 import './App.css'
 import { Button, Input, Tag, message } from 'antd'
-import {React, useState} from 'react'
-import useChat from './useChat'
+import {React, useEffect, useState} from 'react'
+import useChat from './hooks/useChat'
 
 function App() {
   const { status, messages, sendMessage } = useChat();
-  const [username, setUsername] = useState('');
-  const [body, setBody] = useState('');
+  const [ username, setUsername ] = useState('');
+  const [ body, setBody ] = useState('');
   const displayStatus = (payload) => {
     if(payload.msg){
       const {type, msg} = payload;
@@ -24,6 +24,11 @@ function App() {
       }
     }
   }
+
+  useEffect(() => {
+    displayStatus(status);
+  }, [status]);
+
   return (
     <div className="App">
       <div className="App-title">
@@ -37,9 +42,11 @@ function App() {
           <p style={{ color: '#ccc' }}>
             No messages...
           </p>) : (messages.map(({name, body}, i) => {
+            return (
             <p className="App-message" key={i}>
-              <Tag color="blue">{name}</Tag>
-            </p>
+              <Tag color="blue">{ name }</Tag>
+              { body }
+            </p>)
           })
         )}
         

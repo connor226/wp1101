@@ -1,17 +1,23 @@
-const WebSocket = require("ws");
-const http = require('http');
-const express = require('express');
-const dotenv = require('dotenv-defaults');
-const mongoose = require('mongoose');
-import { sendData, sendStatus } from "./wssConnect";
-import Message from "./models/message";
+import {WebSocketServer} from "ws";
+import http from 'http';
+import express  from 'express';
+import dotenv from 'dotenv-defaults';
+import mongoose from 'mongoose';
+import { sendData, sendStatus } from "./wssConnect.js";
+import Message from "./models/message.js";
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({server});
-const db = mongoose.connection
+const wss = new WebSocketServer({server});
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology:true
+})
+.then(() => console.log("Mongodb connected!"))
+
+const db = mongoose.connection;
 db.once('open', () => {
     wss.on('connection', (ws) => {
         ws.onmessage = async(byteString) => {
@@ -36,10 +42,9 @@ db.once('open', () => {
                 }
                 default: break
             }
-            await dbMessage.save();
         }
     })
-    const PORT = env.process.PORT || 4000;
+    const PORT = process.env.PORT || 4000;
     server.listen(PORT, () => {
         console.log(`app listening on port ${PORT}`);
     })
