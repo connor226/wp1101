@@ -3,7 +3,7 @@ import http from 'http';
 import express  from 'express';
 import dotenv from 'dotenv-defaults';
 import mongoose from 'mongoose';
-import { sendData, sendStatus } from "./wssConnect.js";
+import { sendData, sendStatus, initData } from "./wssConnect.js";
 import Message from "./models/message.js";
 
 dotenv.config();
@@ -33,16 +33,30 @@ db.once('open', () => {
                     catch(e){
                         throw new Error("Message DB Save error: " + e);
                     }
-                    sendData(['output', [payload]], ws);
-                    sendStatus({
-                        type: 'success',
-                        msg: 'Message sent'
-                    }, ws);
+                    wss.clients.forEach(client => {
+                        sendData(['output', [payload]], client);
+                        sendStatus({
+                            type: 'success',
+                            msg: 'Message sent'
+                        }, client);
+                    })
+                    
+                    break;
+                }
+                case 'clear':{
+                    Message.deleteMany({}, () => {
+                        console.log("db cleared");
+                        wss.clients.forEach(client => {
+                            sendData(["cleared", "NMSL"], client);
+                            sendStatus({ type: 'info', msg: "Message cache cleared." }, client);
+                        })
+                    })
                     break;
                 }
                 default: break
             }
         }
+        initData(ws);
     })
     const PORT = process.env.PORT || 4000;
     server.listen(PORT, () => {

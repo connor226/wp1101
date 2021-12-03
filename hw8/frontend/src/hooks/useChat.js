@@ -10,14 +10,15 @@ const useChat = () => {
     const [messages, setMessages] = useState([]);
     const [status, setStatus] = useState({});
     const sendMessage = (payload) => {
-        // TODO
         sendData(payload, client);
     }
+    const clearMessages = () => {
+        client.send(JSON.stringify(["clear"]));
+    }
+
     client.onmessage = (byteString) => {
         const { data } = byteString;
-        console.log(data);
         const [ task, payload ] = JSON.parse(data);
-        console.log(task);
         switch(task){
             case 'output': {
                 setMessages(() => [...messages, ...payload]);
@@ -27,13 +28,22 @@ const useChat = () => {
                 setStatus(payload);
                 break;
             }
+            case 'init': {
+                setMessages(() => payload);
+                break;
+            }
+            case 'cleared': {
+                setMessages([]);
+                break;
+            }
             default: break;
         }
     }
     return {
         status,
         messages,
-        sendMessage
+        sendMessage,
+        clearMessages
     }
 }
 

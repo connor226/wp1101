@@ -1,12 +1,14 @@
 import './App.css'
 import { Button, Input, Tag, message } from 'antd'
-import {React, useEffect, useState} from 'react'
+import {React, useEffect, useRef, useState} from 'react'
 import useChat from './hooks/useChat'
 
 function App() {
-  const { status, messages, sendMessage } = useChat();
+  const { status, messages, sendMessage, clearMessages } = useChat();
   const [ username, setUsername ] = useState('');
   const [ body, setBody ] = useState('');
+  const bodyRef = useRef(null);
+
   const displayStatus = (payload) => {
     if(payload.msg){
       const {type, msg} = payload;
@@ -14,6 +16,10 @@ function App() {
       switch(type){
         case 'success':{
           message.success(content);
+          break;
+        }
+        case 'info':{
+          message.info(content);
           break;
         }
         case 'error':{
@@ -33,7 +39,7 @@ function App() {
     <div className="App">
       <div className="App-title">
         <h1>Simple Chat</h1>
-        <Button type="primary" danger >
+        <Button type="primary" danger onClick={ clearMessages }>
           Clear
         </Button>
       </div>
@@ -55,6 +61,11 @@ function App() {
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        onKeyDown={(e) => {
+          if(e.key === 'Enter'){
+            bodyRef.current.focus();
+          }
+        }}
         style={{ marginBottom: 10 }}
       ></Input>
       <Input.Search
@@ -62,7 +73,12 @@ function App() {
         enterButton="Send"
         onChange={(e) => setBody(e.target.value)}
         placeholder="Type a message here..."
+        ref={ bodyRef }
         onSearch={(msg) => {
+          if(!msg || !username){
+            displayStatus({ type: "error", msg: "Please enter a username and a message body." });
+            return ;
+          }
           sendMessage({name: username, body: body});
           setBody('');
         }}
