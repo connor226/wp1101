@@ -1,7 +1,6 @@
 import {useState} from 'react'
 
 const client = new WebSocket('ws://localhost:4000');
-
 const sendData = async(data, client) => {
     await client.send(JSON.stringify(["input", data]));
 }
@@ -43,7 +42,7 @@ const useChat = () => {
         status,
         messages,
         sendMessage,
-        clearMessages
+        clearMessages,
     }
 }
 
