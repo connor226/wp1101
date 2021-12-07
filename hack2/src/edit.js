@@ -23,7 +23,7 @@ function Edit(props) {
     }
     setTimeout(() => {
       props.navigate(-1);
-    }, 350)
+    }, 300)
   }
 
   return (
