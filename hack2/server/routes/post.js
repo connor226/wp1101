@@ -54,6 +54,7 @@ router.post('/newPost', async(req, res) => {
             content,
             timestamp,
         });
+        console.log(req.body);
         await newPost.save();
         res.status(200).send({
             message: "success",
@@ -62,6 +63,7 @@ router.post('/newPost', async(req, res) => {
     catch(err){
         res.status(403).send({
             message: "error",
+            post: null,
         });
     }
 })
@@ -78,6 +80,7 @@ router.delete('/post', async(req, res) => {
     catch(err){
         res.status(403).send({
             message: "error",
+            post: null,
         });
     }
 })

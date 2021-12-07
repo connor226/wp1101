@@ -31,6 +31,8 @@ mongoose.connect(process.env.MONGO_URL, dboptions)
     dataInit()
 })
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', postRoute)
 
 app.listen(port, () => {

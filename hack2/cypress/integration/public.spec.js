@@ -76,7 +76,7 @@ describe('Hackathon 2 Public Test', () => {
     cy.get('#pid-0-title').should('contain', 'Public Test')
     cy.get('#pid-0-time').should('contain', '2021-12-02')
     cy.get('#pid-post-btn').click()
-    cy.get('#pid-create-title').type('Public Test 2')
+    cy.get('#pid-create-title').type('  Public Test 2')
     cy.get('#pid-create-content').type('public test 2')
     cy.get('#pid-create-submit-btn').click()
     cy.get('#pid-0-title').should('contain', 'Public Test 2')
