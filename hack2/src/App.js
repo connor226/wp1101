@@ -1,41 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import {useEffect, useState} from 'react';
-import {initNum, incNum} from './api'
-import Button from '@material-ui/core/Button'
+import React from 'react'
+import Guide from './guide'
 
-function App() {
-  const [num, setNum] = useState(0);
+import { BrowserRouter as Router } from 'react-router-dom'
 
-  const add1 = async() => {
-    const {num} = await incNum(17);
-    setNum(num);
-  }
+import './App.css'
 
-  const minus1 = async() => {
-    const {num} = await incNum(-100);
-    setNum(num);
-  }
-  
-  useEffect(() => {
-    const init = async() => {
-      const {num} = await initNum();
-      setNum(num);
-    }
-    init()
-  }, [])
+function App(props) {
+  document.title = '110-1 Hackathon 2'
   
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>
-          <Button onClick={minus1} color="primary">-</Button>
-          <h2>{num}</h2>
-          <Button onClick={add1} color="primary">+</Button>
-        </div>
-      </header>
-    </div>
+    <Router>
+      <Guide />
+    </Router>
   );
 }
 
