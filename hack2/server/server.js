@@ -1,10 +1,9 @@
 import express from 'express'
-import postRoute from './routes/post.js'
+import postRoute from './routes/post'
 import mongoose from 'mongoose'
-import { dataInit } from './upload.js'
-import dotenv from 'dotenv'
-// require('dotenv').config()
-dotenv.config();
+import { dataInit } from './upload'
+
+require('dotenv').config()
 const app = express()
 
 app.use(express.json())

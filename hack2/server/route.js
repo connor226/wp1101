@@ -1,5 +1,5 @@
 import express from 'express';
-import post from './model.js';
+import post from './model';
 
 const api = express.Router()
 

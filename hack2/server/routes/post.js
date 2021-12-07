@@ -1,5 +1,5 @@
 import express from 'express';
-import Post from '../models/post.js';
+import Post from '../models/post';
 import moment from 'moment';
 
 const router = express.Router();
