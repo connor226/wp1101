@@ -11,8 +11,10 @@ function Edit(props) {
 
   // TODO 4-(2): complete handleSubmit function to create a new post and save it to database 
   const handleSubmit = () => {
-    const newTitle = title.trim();
-    const newContent = content.trim();
+    const newTitle = title;
+    const newContent = content;
+    newTitle.trim();
+    newContent.trim();
     if(newTitle !== '' && newContent !== ''){
       instance.post('/newPost', {
         postId: uuidv4(),
