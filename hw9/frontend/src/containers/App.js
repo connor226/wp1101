@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Chatroom from './components/chatroom';
-import SignIn from './components/signin';
-import useChat from './utils/useChat';
-import displayStatus from './utils/displayStatus';
+import Chatroom from './chatroom';
+import SignIn from './signin';
+import useChat from '../hooks/useChat';
+import displayStatus from '../hooks/displayStatus';
 
 const LOCAL_STORAGE_KEY = "Easter-Eggg";
 

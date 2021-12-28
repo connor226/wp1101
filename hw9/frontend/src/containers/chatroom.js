@@ -1,7 +1,7 @@
 import { Button, Input, Tag } from 'antd'
 import {React, useRef, useState} from 'react'
 // import useChat from '../utils/useChat'
-import displayStatus from '../utils/displayStatus';
+import displayStatus from '../hooks/displayStatus';
 
 export default function Chatroom({ username, setName, messages, sendMessage, clearMessages }){
   //const { status, messages, sendMessage, clearMessages } = useChat();

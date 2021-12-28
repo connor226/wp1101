@@ -1,6 +1,6 @@
 import { Input } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import displayStatus from "../utils/displayStatus";
+import displayStatus from "../hooks/displayStatus";
 
 export default function SignIn({ username, setName, setSignedIn }){
     return (

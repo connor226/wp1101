@@ -15,20 +15,8 @@ export const UPDATE_TASK_MUTATION = gql`
 // TODO 4.1 Create Task Mutation.
 // Uncomment the following lines and fill the gql part
 export const CREATE_TASK_MUTATION = gql`
-  mutation CreateTask(
-    $dueDate: Date!
-    $id: ID!
-    $content: String!
-    $status: Status!
-    $title: String!
-    ) {
-    createTask(input: {
-      dueDate: $dueDate
-      id: $id
-      content: $content
-      status: $status
-      title: $title
-    }) {
+  mutation CreateTask($input: CreateTaskInput!) {
+    createTask(input: $input) {
       dueDate
       id
       content
