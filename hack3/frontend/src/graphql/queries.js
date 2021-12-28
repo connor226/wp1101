@@ -8,6 +8,7 @@ export const GET_TASKS_QUERY = gql`
       id
       content
       status
+      title
     }
   }
 `;
