@@ -13,7 +13,8 @@ const newUser = async(db, name) => {
 }
 
 const makeName = (name1, name2) => {
-    return `${ name1 }-${ name2 }`;
+    if(name1 < name2)  return `${ name1 }-${ name2 }`;
+    else  return `${ name2 }-${ name1 }`;
 }
 
 const checkChatbox = async(db, name, errFunc) => {

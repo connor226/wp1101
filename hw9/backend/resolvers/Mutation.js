@@ -13,18 +13,13 @@ const Mutation = {
         }
         let chatboxName = makeName(name1, name2);
         let chatbox = await checkChatbox(db, chatboxName, "createChatbox");
-        if(!chatbox) {
-            chatboxName = makeName(name2, name1);
-            chatbox = await checkChatbox(db, chatboxName, "createChatbox");
-            if(!chatbox)  chatbox = await newChatbox(db, chatboxName);
-        }
+        if(!chatbox)  chatbox = await newChatbox(db, chatboxName);
         pubsub.publish(`chatbox ${chatboxName}`, {mutation: 'CREATED', chatbox})
         return chatbox;
     },
     async createMessage(parent, {sender, to, body}, {db, pubsub}, info) {
         const nMessage = await newMessage(db, sender, body, "createMessage");
         let chatboxName = makeName(sender, to);
-        if(!(await checkChatbox(db, chatboxName, "createMessage")))  chatboxName = makeName(to, sender);
         const oldChatbox = await checkChatbox(db, chatboxName, "createMessage");
         const newChatbox = await updateChatbox(db, oldChatbox, nMessage, "createMessage");
         pubsub.publish(`chatbox ${chatboxName}`, {mutation: 'UPDATED', chatbox: newChatbox});

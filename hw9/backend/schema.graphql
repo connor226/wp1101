@@ -5,7 +5,7 @@ type Mutation {
 }
 
 type Subscription {
-    chatbox(cName: String): Chatbox!
+    chatbox(cName: String): Message!
 }
 
 type Query {
