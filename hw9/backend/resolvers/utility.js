@@ -36,7 +36,7 @@ const newMessage = async(db, sender, body, errFunc) => {
 
 const updateChatbox = async(db, oChatbox, nMessage, errFunc) => {
     const newMessages = [...oChatbox.messages, nMessage];
-    await db.Chatbox.updateOne({ id: oChatbox.id } , { messages: newMessages });
+    await db.Chatbox.updateOne({ _id: oChatbox.id } , { messages: newMessages });
     return oChatbox;
 }
 

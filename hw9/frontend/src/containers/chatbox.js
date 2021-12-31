@@ -1,6 +1,6 @@
 import { Tag } from 'antd';
 import { useQuery } from '@apollo/client';
-import { CHATBOX_QUERY } from '../graphql';
+import { CHATBOX_QUERY, CHATBOX_SUBSCRIPTION } from '../graphql';
 import { useState, useEffect } from 'react';
 
 const makeName = (username, friend) => {
@@ -9,18 +9,30 @@ const makeName = (username, friend) => {
 }
 
 export default function Chatbox({ username, friend }){
+    
     const [messages, setMessages] = useState([]);
     const { data, subscribeToMore } = useQuery(CHATBOX_QUERY, {
         variables: {
             name: makeName(username, friend),
         }
     })
+    
+    useEffect(() => {
+      subscribeToMore({
+        document: CHATBOX_SUBSCRIPTION,
+        variables: {cName: makeName(username, friend)},
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev;
+          return {chatboxs : {messages: [...prev.chatboxs.messages, subscriptionData.data.chatbox]}};
+        },
+      });
+    }, [subscribeToMore]);
+    
     useEffect(() => {
       if (!data) return;
       setMessages(data.chatboxs.messages);
     }, [data]);
   
-    console.log(data)
     return (
         <div className="App-messages">
           {messages.length === 0 ? (
