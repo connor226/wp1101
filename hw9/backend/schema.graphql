@@ -1,6 +1,6 @@
 type Mutation {
     createChatbox(name1: String, name2: String): Chatbox!
-    createMessage(sender: String, to: String, body: String): Chatbox!
+    createMessage(sender: String, to: String, body: String): Message!
     clearChatbox(name: String): Chatbox!
 }
 
@@ -9,7 +9,7 @@ type Subscription {
 }
 
 type Query {
-    chatboxs(name: String): [Chatbox!]
+    chatboxs(name: String): Chatbox!
 }
 
 type Chatbox {
