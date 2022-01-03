@@ -79,6 +79,10 @@ export default function Chatroom({ username }){
             displayStatus({ type: "error", msg: "Please enter a message body." });
             return ;
           }
+          if(!activateKey){
+            displayStatus({ type: "error", msg: "This message is sent to nobody." });
+            return ;
+          }
           sendMessage({variables: {
             sender: username,
             to: activateKey,
